@@ -2,6 +2,8 @@ package view;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import singleton.Choice;
+import singleton.Data;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +17,13 @@ public class Main {
     private JPanel panel2;
     private JPanel panel3;
     private JPanel panel4;
+    private JScrollPane scrollPane1;
+    private JScrollPane scrollPane2;
 
+    private JTable jTable1;
+    private JTable jTable2;
+    private MyTableModel myTableModel1;
+    private MyTableModel myTableModel2;
 
 
     public Main() {
@@ -45,7 +53,7 @@ public class Main {
         frame.setVisible(true);
     }
 
-    private void showImportDialog(){
+    private void showImportDialog() {
         ImportDialog dialog = new ImportDialog();
         dialog.setTitle("导入操作设置");
         dialog.setLocationRelativeTo(null);
@@ -62,14 +70,23 @@ public class Main {
         dialog.setVisible(true);
     }
 
-    private boolean init(){
-        boolean isSucceed = true;
-
-
-        return isSucceed;
+    private void initTable() {
+        Choice.getInstance().init();
+        jTable1 = new JTable();
+        jTable2 = new JTable();
+        myTableModel1 = new MyTableModel();
+        myTableModel2 = new MyTableModel();
+        myTableModel1.setData(Data.getInstance().getOriginalData());
+        myTableModel1.setColumnNames(Data.getInstance().getTableHeader());
+        myTableModel2.setData(Data.getInstance().getTranData());
+        myTableModel2.setColumnNames(Data.getInstance().getTableHeader());
+        jTable1.setModel(myTableModel1);
+        jTable2.setModel(myTableModel2);
+        scrollPane1.setViewportView(jTable1);
+        scrollPane2.setViewportView(jTable2);
     }
 
-    private boolean update(){
+    private boolean updateTable() {
         boolean isSucceed = true;
 
 
@@ -82,6 +99,10 @@ public class Main {
         panel2 = new JPanel();
         panel3 = new JPanel();
         panel4 = new JPanel();
+        scrollPane1 = new JScrollPane();
+        scrollPane2 = new JScrollPane();
+
+        initTable();
     }
 
     /**
@@ -101,9 +122,7 @@ public class Main {
         button2 = new JButton();
         button2.setText("导出");
         panel1.add(button2, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JScrollPane scrollPane1 = new JScrollPane();
         panel1.add(scrollPane1, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(500, 500), new Dimension(500, 500), new Dimension(500, 500), 0, false));
-        final JScrollPane scrollPane2 = new JScrollPane();
         panel1.add(scrollPane2, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(500, 500), new Dimension(500, 500), new Dimension(500, 500), 0, false));
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel1.add(panel3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));

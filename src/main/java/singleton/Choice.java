@@ -20,9 +20,13 @@ public class Choice {
     private File choosedFile;
 
     private Choice(){
+        init();
+    }
+
+    public void init(){
         method = null;
         coordinateSystem = null;
-        centralMeridian = 0;
+        centralMeridian = -1;
         choosedFile = null;
     }
 
