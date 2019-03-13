@@ -40,7 +40,8 @@ public class BLH_XYZ extends AbstractCalculator implements ICalculator {
             result[1] = df.format(xyz.Y);
             result[2] = df.format(xyz.Z);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("转换出错！");
+            //e.printStackTrace();
         }
         return result;
     }

@@ -45,13 +45,13 @@ public class XYZ_BLH extends AbstractCalculator implements ICalculator{
                 N1 = Choice.getInstance().getCoordinateSystem().RA / Math.sqrt(1 - Choice.getInstance().getCoordinateSystem().EPF * Math.sin(B0) * Math.sin(B0));
                 H1 = Math.sqrt(x * x + y * y) / Math.cos(B0) - N1;
                 B1 = Math.atan(bz1 / (1 - (Choice.getInstance().getCoordinateSystem().EPF * N1) / (N1 + H1)));
-                System.out.println("1");
             } while (Math.abs(B1 - B0) >= Math.pow(10, -16));
             result[1] = trans.DegToDMS(B1 * 180 / Math.PI);
             DecimalFormat df = new DecimalFormat("#.0000");
             result[2] = df.format(H1);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("转换出错！");
+            //e.printStackTrace();
         }
         return result;
     }

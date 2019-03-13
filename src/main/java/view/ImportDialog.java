@@ -5,6 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import singleton.Choice;
 import singleton.Config;
+import tools.ExcelReader;
 
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
@@ -23,10 +24,13 @@ public class ImportDialog extends JDialog {
     private JTextField textField2;
     private JTextField textField3;
     private JPanel panel1;
+    private Main main;
 
 
-    public ImportDialog() {
+    public ImportDialog(Main main) {
         $$$setupUI$$$();
+
+        this.main = main;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -104,6 +108,8 @@ public class ImportDialog extends JDialog {
                 String path = jfc.getSelectedFile().getAbsolutePath();
                 Choice.getInstance().setChoosedFile(new File(path));
                 // choosedFile.getAbsolutePath()
+                ExcelReader.read(path);
+                main.updateTable();
                 //System.out.println(path);
             }
         } catch (Exception error) {
@@ -139,14 +145,6 @@ public class ImportDialog extends JDialog {
     private void onCancel() {
         // add your code here if necessary
         dispose();
-    }
-
-    public static void main(String[] args) {
-        ImportDialog dialog = new ImportDialog();
-        dialog.setTitle("导入操作设置");
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 
     private void createUIComponents() {

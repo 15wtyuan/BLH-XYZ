@@ -22,7 +22,8 @@ public class XY_BL extends AbstractCalculator implements ICalculator {
             result[0] = trans.DegToDMS(bl.X);
             result[1] = trans.DegToDMS(bl.Y);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("转换出错！");
+            //e.printStackTrace();
         }
         return result;
     }

@@ -1,6 +1,5 @@
 package tools;
 
-import factory.CalculatorFactory;
 import factory.DataFormFactory;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -8,7 +7,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import singleton.Choice;
 import singleton.Data;
-import strategy.ICalculator;
 
 public class ExcelReader {
 
@@ -27,7 +25,7 @@ public class ExcelReader {
 
         //获取Excel文件中的所有行数
         int rows = sheet.getLastRowNum();
-        System.out.println(rows);
+        //System.out.println(rows);
 
         Object[][] originalData = new Object[rows][DataFormFactory.colNumProduce(Choice.getInstance().getMethod())];
 
@@ -48,6 +46,7 @@ public class ExcelReader {
                     XSSFCell cell = row.getCell(j);
                     String value = getValue(cell);
                     originalData[i][j] = value;
+                    //System.out.println(value);
                 }
             }
         }
@@ -55,7 +54,7 @@ public class ExcelReader {
     }
 
     //    在每一行中，通过列名来获取对应列的值
-    public static String getValue(XSSFCell xssfCell) {
+    private static String getValue(XSSFCell xssfCell) {
         if (xssfCell == null) {
             return "";
         }
