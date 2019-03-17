@@ -26,19 +26,52 @@ public class Main {
     private MyTableModel myTableModel1;
     private MyTableModel myTableModel2;
 
+    JMenuBar jMenuBar = new JMenuBar();
+    private JMenuItem openMenuItem;
+    private JMenuItem exportMenuItem;
+    private JMenuItem exitMenuItem;
+    private JMenu fileMenu = new JMenu("文件");
+    private JMenu aboutMenu = new JMenu("关于");
+
 
     public Main() {
         $$$setupUI$$$();
+
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showImportDialog();
             }
         });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showOutputDialog();
+            }
+        });
+        openMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showImportDialog();
+            }
+        });
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showOutputDialog();
+            }
+        });
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Win_BLHtoXYZ");
+        Main win = new Main();
         frame.setContentPane(new Main().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -51,7 +84,24 @@ public class Main {
         int screenWidth = screenSize.width; //获取屏幕的宽
         int screenHeight = screenSize.height; //获取屏幕的高
         frame.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight / 2 - windowHeight / 2);//设置窗口居中显示
+        frame.setJMenuBar(win.jMenuBar);
         frame.setVisible(true);
+    }
+
+    private void showOutputDialog() {
+        OutputDialog dialog = new OutputDialog();
+        dialog.setLocationRelativeTo(null);
+        dialog.pack();
+        int windowWidth = dialog.getWidth(); //获得窗口宽
+        //System.out.println(windowWidth);
+        int windowHeight = dialog.getHeight(); //获得窗口高
+        //System.out.println(windowHeight);
+        Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包
+        Dimension screenSize = kit.getScreenSize(); //获取屏幕的尺寸
+        int screenWidth = screenSize.width; //获取屏幕的宽
+        int screenHeight = screenSize.height; //获取屏幕的高
+        dialog.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight / 2 - windowHeight / 2);//设置窗口居中显示
+        dialog.setVisible(true);
     }
 
     private void showImportDialog() {
@@ -112,6 +162,21 @@ public class Main {
         scrollPane2 = new JScrollPane();
         label1 = new JLabel("");
         initTable();
+
+        //创建三个菜单项
+        openMenuItem = new JMenuItem("导入");
+        exportMenuItem = new JMenuItem("导出");
+        exitMenuItem = new JMenuItem("退出");
+
+        //把菜单项加到菜单上
+        fileMenu.add(openMenuItem);
+        fileMenu.add(exportMenuItem);
+        fileMenu.addSeparator();       // 添加一条分割线
+        fileMenu.add(exitMenuItem);
+
+        //把菜单加到菜单条上
+        jMenuBar.add(fileMenu);
+        jMenuBar.add(aboutMenu);
     }
 
     /**

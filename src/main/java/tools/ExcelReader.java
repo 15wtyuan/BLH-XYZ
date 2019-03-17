@@ -10,14 +10,6 @@ import singleton.Data;
 
 public class ExcelReader {
 
-    public static void main(String[] args) {
-        try {
-            read("./新建 Microsoft Excel 工作表.xlsx");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void read(String ExcelPath) throws Exception {
 
         XSSFWorkbook workbook = new XSSFWorkbook(ExcelPath);
@@ -33,7 +25,7 @@ public class ExcelReader {
         //List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < rows; i++) {
             //读取左上角单元格
-            XSSFRow row = sheet.getRow(i+1);
+            XSSFRow row = sheet.getRow(i + 1);
 
             //行不为空
             if (row != null) {
@@ -42,7 +34,7 @@ public class ExcelReader {
                 //获取Excel文件中所有的列
                 int cells = row.getPhysicalNumberOfCells();
 
-                for (int j = 0;j<DataFormFactory.colNumProduce(Choice.getInstance().getMethod());j++){
+                for (int j = 0; j < DataFormFactory.colNumProduce(Choice.getInstance().getMethod()); j++) {
                     XSSFCell cell = row.getCell(j);
                     String value = getValue(cell);
                     originalData[i][j] = value;
@@ -64,8 +56,7 @@ public class ExcelReader {
         } else if (xssfCell.getCellType() == xssfCell.CELL_TYPE_NUMERIC) {
             //返回数值类型的值
             return String.valueOf(xssfCell.getNumericCellValue());
-        }
-        else {
+        } else {
             //返回字符串类型的值
             return String.valueOf(xssfCell.getStringCellValue());
         }
