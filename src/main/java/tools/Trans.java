@@ -107,8 +107,6 @@ public class Trans {
         bl.Y = (1 - (1 + 2 * Math.pow(t, 2) + Math.pow(Et, 2)) * Math.pow((xy.Y / N), 2) / 6 + (5 + 28 * Math.pow(t, 2) + 24 * Math.pow(t, 4) + 6 * Math.pow(Et, 2) + 8 * Math.pow(Et, 2) * Math.pow(t, 2)) * Math.pow((xy.Y / N), 4) / 120) / Math.cos(B0 * PI / 180) * xy.Y / N * P;
         bl.Y = bl.Y / 3600 + L0;
         xy.Y = xy.Y + yy;
-
-//        '  Debug.Print x & ", " & y + YY & ", " & FmtDMS(B, 4) & ", " & FmtDMS(LL / 3600 + L0, 4)
         return bl;
     }
 
@@ -149,7 +147,6 @@ public class Trans {
         xx = RA * (1 - Math.pow(e, 2)) * (Ap * bl.X * Math.PI / 180 - Bp * Math.sin(2 * bl.X * Math.PI / 180) + CP * Math.sin(4 * bl.X * Math.PI / 180) - dp * Math.sin(6 * bl.X * Math.PI / 180) + Ep * Math.sin(8 * bl.X * Math.PI / 180) - Fp * Math.sin(10 * bl.X * Math.PI / 180) + Gp * Math.sin(12 * bl.X * Math.PI / 180));
         xy.X = xx + N * t * (Math.pow(Q, 2) / 2 + (5 - Math.pow(t, 2) + 9 * Math.pow(Et, 2) + 4 * Math.pow(Et, 4)) * Math.pow(Q, 4) / 24 + (61 - 58 * Math.pow(t, 2) + Math.pow(t, 4)) * Math.pow(Q, 6) / 720);
         xy.Y = yy + N * (Q + (1 - Math.pow(t, 2) + Math.pow(Et, 2)) * Math.pow(Q, 3) / 6 + (5 - 18 * Math.pow(t, 2) + Math.pow(t, 4) + 14 * Math.pow(Et, 4) - 58 * Math.pow(Et, 2) * Math.pow(t, 2)) * Math.pow(Q, 5) / 120);
-        //  Debug.Print FmtNum(X, 3), FmtNum(Y, 3)
         return xy;
     }
 

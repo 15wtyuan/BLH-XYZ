@@ -26,8 +26,10 @@ public class Data {
 
     public void setOriginalData(Object[][] originalData) {
         this.originalData = originalData;
-        calculator();
-        getTableHeader(Choice.getInstance().getMethod());
+        if (Choice.getInstance().getMethod()!=null){
+            calculator();
+            getTableHeader(Choice.getInstance().getMethod());
+        }
     }
 
     private void getTableHeader(String type) {
