@@ -26,7 +26,7 @@ public class Config {
             Wini ini = new Wini(new File("config.ini"));
 
         }catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             coordinateSystemList = new ArrayList<CoordinateSystem>();
             CoordinateSystem coordinateSystem1 = new CoordinateSystem("1954年北京坐标系",6378245);
             CoordinateSystem coordinateSystem2 = new CoordinateSystem("WGS84世界坐标系",6378137);

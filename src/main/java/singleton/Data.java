@@ -1,7 +1,14 @@
 package singleton;
 
+import bean.Point2d;
+import bean.Point3d;
+import bean.ResultParameters4;
+import bean.ResultParameters7;
 import factory.CalculatorFactory;
 import strategy.ICalculator;
+import tools.PramSCals;
+
+import java.util.ArrayList;
 
 public class Data {
     private static Data ourInstance = new Data();
@@ -32,6 +39,14 @@ public class Data {
         }
     }
 
+    public void setAllData(Object[][] originalData,Object[][] tranData){
+        this.originalData = originalData;
+        this.tranData = tranData;
+        if (Choice.getInstance().getMethod()!=null){
+            getTableHeader(Choice.getInstance().getMethod());
+        }
+    }
+
     private void getTableHeader(String type) {
         if ("BLH -> XYZ".equals(type)) {
             tableHeader1 = new String[]{"B", "L", "H"};
@@ -45,6 +60,13 @@ public class Data {
         } else if ("BL -> XY".equals(type)) {
             tableHeader1 = new String[]{"B", "L"};
             tableHeader2 = new String[]{"X", "Y"};
+        }else if ("求四参数".equals(type)){
+            tableHeader1 = new String[]{"X", "Y"};
+            tableHeader2 = new String[]{"X", "Y"};
+        }
+        else if ("求七参数".equals(type)){
+            tableHeader1 = new String[]{"X", "Y", "Z"};
+            tableHeader2 = new String[]{"X", "Y", "Z"};
         } else {
             tableHeader1 = new  String[]{"", "", ""};
             tableHeader2 = new  String[]{"", "", ""};
@@ -71,6 +93,61 @@ public class Data {
                 System.out.println("第"+i+"行转换出现错误");
             }
         }
+    }
+
+    public ResultParameters4 getResultParameters4(){
+        Object[][] data1 = originalData;
+        Object[][] data2 = tranData;
+        ArrayList<Point2d> list1 = new ArrayList<>();
+        ArrayList<Point2d> list2 = new ArrayList<>();
+        for (int i = 0; i < data1.length; i++) {
+            try {
+                Point2d temp1 = new Point2d(Double.valueOf((String) data1[i][0]), Double.valueOf((String) data1[i][1]));
+                Point2d temp2 = new Point2d(Double.valueOf((String) data2[i][0]), Double.valueOf((String) data2[i][1]));
+                list1.add(temp1);
+                list2.add(temp2);
+            } catch (Exception e) {
+                System.out.println("转换出错！");
+            }
+        }
+        Point2d[] p1 = new Point2d[list1.size()];
+        Point2d[] p2 = new Point2d[list2.size()];
+
+        for (int i = 0; i < list1.size(); i++) {
+            p1[i] = list1.get(i);
+            p2[i] = list2.get(i);
+        }
+
+        ResultParameters4 resultParameters4 = PramSCals.Canshu4(p1, p2, list1.size());
+        return resultParameters4;
+    }
+
+    public ResultParameters7 getResultParameters7(){
+        Object[][] data1 = originalData;
+        Object[][] data2 = tranData;
+        ArrayList<Point3d> list1 = new ArrayList<>();
+        ArrayList<Point3d> list2 = new ArrayList<>();
+        for (int i = 0; i < data1.length; i++) {
+            try {
+                Point3d temp1 = new Point3d(Double.valueOf((String) data1[i][0]), Double.valueOf((String) data1[i][1]), Double.valueOf((String) data1[i][2]));
+                Point3d temp2 = new Point3d(Double.valueOf((String) data2[i][0]), Double.valueOf((String) data2[i][1]), Double.valueOf((String) data2[i][2]));
+                list1.add(temp1);
+                list2.add(temp2);
+            } catch (Exception e) {
+                System.out.println("转换出错！");
+            }
+        }
+        System.out.println(list1.size());
+        System.out.println(list2.size());
+        Point3d[] p1 = new Point3d[list1.size()];
+        Point3d[] p2 = new Point3d[list2.size()];
+
+        for (int i = 0; i < list1.size(); i++) {
+            p1[i] = list1.get(i);
+            p2[i] = list2.get(i);
+        }
+        ResultParameters7 resultParameters7 = PramSCals.Canshu7(p1, p2, list1.size());
+        return resultParameters7;
     }
 
 

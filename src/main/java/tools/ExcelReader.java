@@ -10,6 +10,48 @@ import singleton.Data;
 
 public class ExcelReader {
 
+    public static void readAll(String ExcelPath) throws Exception{
+        XSSFWorkbook workbook = new XSSFWorkbook(ExcelPath);
+        XSSFSheet sheet = workbook.getSheet("Sheet1");
+
+        //获取Excel文件中的所有行数
+        int rows = sheet.getLastRowNum();
+        //System.out.println(rows);
+
+        Object[][] originalData = new Object[rows][DataFormFactory.colNumProduce(Choice.getInstance().getMethod())];
+        Object[][] tranData = new Object[rows][DataFormFactory.colNumProduce(Choice.getInstance().getMethod())];
+
+        //遍历行
+        //List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < rows; i++) {
+            //读取左上角单元格
+            XSSFRow row = sheet.getRow(i + 1);
+
+            //行不为空
+            if (row != null) {
+                //Map<String, Object> map = new LinkedHashMap<String, Object>();
+
+                //获取Excel文件中所有的列
+                int cells = row.getPhysicalNumberOfCells();
+
+                for (int j = 0; j < DataFormFactory.colNumProduce(Choice.getInstance().getMethod()); j++) {
+                    XSSFCell cell = row.getCell(j);
+                    String value = getValue(cell);
+                    originalData[i][j] = value;
+                    //System.out.println(value);
+                }
+
+                for (int j = DataFormFactory.colNumProduce(Choice.getInstance().getMethod());j<DataFormFactory.colNumProduce(Choice.getInstance().getMethod())*2;j++){
+                    XSSFCell cell = row.getCell(j);
+                    String value = getValue(cell);
+                    tranData[i][j-DataFormFactory.colNumProduce(Choice.getInstance().getMethod())] = value;
+                }
+            }
+        }
+        Data.getInstance().setAllData(originalData,tranData);
+    }
+
+
     public static void read(String ExcelPath) throws Exception {
 
         XSSFWorkbook workbook = new XSSFWorkbook(ExcelPath);

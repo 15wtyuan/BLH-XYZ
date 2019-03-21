@@ -17,8 +17,8 @@ public class CalculatorFactory {
             return new BL_XY();
         }
         else {
-            System.out.println("请输入正确的类型!");
-            return null;
+            //System.out.println("请输入正确的类型!");
+            return new Copy();
         }
     }
 }

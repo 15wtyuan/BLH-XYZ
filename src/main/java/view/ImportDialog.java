@@ -108,7 +108,13 @@ public class ImportDialog extends JDialog {
                 String path = jfc.getSelectedFile().getAbsolutePath();
                 Choice.getInstance().setChoosedFile(new File(path));
                 // choosedFile.getAbsolutePath()
-                ExcelReader.read(path);
+                if (Choice.getInstance().getMethod().equals("BLH -> XYZ") ||
+                        Choice.getInstance().getMethod().equals("BL -> XY") ||
+                        Choice.getInstance().getMethod().equals("XYZ -> BLH") ||
+                        Choice.getInstance().getMethod().equals("XY -> BL"))
+                    ExcelReader.read(path);
+                else
+                    ExcelReader.readAll(path);
                 main.updateTable();
                 //System.out.println(path);
             }

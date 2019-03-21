@@ -1,15 +1,22 @@
 package view;
 
+import bean.Point2d;
+import bean.Point3d;
+import bean.ResultParameters4;
+import bean.ResultParameters7;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import factory.DataFormFactory;
 import singleton.Choice;
 import singleton.Data;
+import tools.PramSCals;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Main {
     private JButton button1;
@@ -21,7 +28,7 @@ public class Main {
     private JScrollPane scrollPane1;
     private JScrollPane scrollPane2;
     private JLabel label1;
-    private JButton 刷新Button;
+    private JButton FlashButton;
 
     private JTable jTable1;
     private JTable jTable2;
@@ -48,7 +55,11 @@ public class Main {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showOutputDialog();
+                if (DataFormFactory.isTrans(Choice.getInstance().getMethod()))
+                    showOutputDialog();
+                else {
+                    showPramSCalsDialog();
+                }
             }
         });
         openMenuItem.addActionListener(new ActionListener() {
@@ -69,7 +80,7 @@ public class Main {
                 System.exit(0);
             }
         });
-        刷新Button.addActionListener(new ActionListener() {
+        FlashButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Data.getInstance().setOriginalData(myTableModel1.getData());
@@ -95,6 +106,34 @@ public class Main {
         frame.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight / 2 - windowHeight / 2);//设置窗口居中显示
         frame.setJMenuBar(win.jMenuBar);
         frame.setVisible(true);
+    }
+
+    private void showPramSCalsDialog() {
+        System.out.println(1111111);
+        if (Choice.getInstance().getMethod().equals("求四参数")) {
+
+            ResultParameters4 resultParameters4 = Data.getInstance().getResultParameters4();
+            String message = "计算结果\n"
+                    + "rota: " + resultParameters4.rota + "\n"
+                    + "scale: " + resultParameters4.scale + "\n"
+                    + "dx: " + resultParameters4.dx + "\n"
+                    + "dy: " + resultParameters4.dy + "\n";
+
+            JOptionPane.showMessageDialog(panel1, message, " 计算结果", JOptionPane.PLAIN_MESSAGE);
+        } else if (Choice.getInstance().getMethod().equals("求七参数")) {
+
+            ResultParameters7 resultParameters7 = Data.getInstance().getResultParameters7();
+            String message = "计算结果\n"
+                    + "rotax: " + resultParameters7.rotax + "\n"
+                    + "rotay: " + resultParameters7.rotay + "\n"
+                    + "rotaz: " + resultParameters7.rotaz + "\n"
+                    + "scale: " + resultParameters7.scale + "\n"
+                    + "dx: " + resultParameters7.dx + "\n"
+                    + "dy: " + resultParameters7.dy + "\n"
+                    + "dz: " + resultParameters7.dz + "\n";
+
+            JOptionPane.showMessageDialog(panel1, message, " 计算结果", JOptionPane.PLAIN_MESSAGE);
+        }
     }
 
     private void showOutputDialog() {
@@ -148,6 +187,7 @@ public class Main {
 
     public void updateTable() {
         //System.out.println("updata");
+        button2.setText("计算并显示结果");
         label1.setText("转换方法：" + Choice.getInstance().getMethod());
         myTableModel1.setData(Data.getInstance().getOriginalData());
         myTableModel1.setColumnNames(Data.getInstance().getTableHeader1());
@@ -205,9 +245,9 @@ public class Main {
         panel2.add(button1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel2.add(spacer1, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        刷新Button = new JButton();
-        刷新Button.setText("刷新");
-        panel2.add(刷新Button, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        FlashButton = new JButton();
+        FlashButton.setText("刷新");
+        panel2.add(FlashButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         button2 = new JButton();
         button2.setText("导出");
         panel2.add(button2, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
