@@ -14,10 +14,10 @@ public class DataFormFactory {
             return 3;
         }
         else if ("XY -> BL".equals(type)) {
-            return 3;
+            return 2;
         }
         else if ("BL -> XY".equals(type)) {
-            return 3;
+            return 2;
         }
         else if ("求四参数".equals(type)){
             return 2;

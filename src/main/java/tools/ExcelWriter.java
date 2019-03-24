@@ -26,7 +26,7 @@ public class ExcelWriter {
                 row.createCell(j).setCellValue((String) Data.getInstance().getOriginalData()[i][j]);
             }
             for (int j = Data.getInstance().getOriginalData()[0].length; j < (Data.getInstance().getOriginalData()[0].length + Data.getInstance().getTranData()[0].length); j++) {
-                row.createCell(j).setCellValue((String) Data.getInstance().getOriginalData()[i][j - Data.getInstance().getOriginalData()[0].length]);
+                row.createCell(j).setCellValue((String) Data.getInstance().getTranData()[i][j - Data.getInstance().getOriginalData()[0].length]);
             }
         }
 

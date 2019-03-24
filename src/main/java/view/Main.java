@@ -38,6 +38,7 @@ public class Main {
     JMenuBar jMenuBar = new JMenuBar();
     private JMenuItem openMenuItem;
     private JMenuItem exportMenuItem;
+    private JMenuItem openConfigItem;
     private JMenuItem exitMenuItem;
     private JMenu fileMenu = new JMenu("文件");
     private JMenu aboutMenu = new JMenu("关于");
@@ -68,10 +69,21 @@ public class Main {
                 showImportDialog();
             }
         });
-        exitMenuItem.addActionListener(new ActionListener() {
+        exportMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showOutputDialog();
+            }
+        });
+        openConfigItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Runtime.getRuntime().exec("cmd.exe /c notepad.exe config.ini");
+                } catch (Exception ee) {
+                    ee.printStackTrace();
+                    System.out.println("无法打开配置文件");
+                }
             }
         });
         exitMenuItem.addActionListener(new ActionListener() {
@@ -187,7 +199,10 @@ public class Main {
 
     public void updateTable() {
         //System.out.println("updata");
-        button2.setText("计算并显示结果");
+        System.out.println("原始数据行列：" + Data.getInstance().getOriginalData().length + "/" + Data.getInstance().getOriginalData()[0].length);
+        System.out.println("转换数据行列：" + Data.getInstance().getTranData().length + "/" + Data.getInstance().getTranData()[0].length);
+        if (!DataFormFactory.isTrans(Choice.getInstance().getMethod()))
+            button2.setText("计算并显示结果");
         label1.setText("转换方法：" + Choice.getInstance().getMethod());
         myTableModel1.setData(Data.getInstance().getOriginalData());
         myTableModel1.setColumnNames(Data.getInstance().getTableHeader1());
@@ -215,11 +230,13 @@ public class Main {
         //创建三个菜单项
         openMenuItem = new JMenuItem("导入");
         exportMenuItem = new JMenuItem("导出");
+        openConfigItem = new JMenuItem("打开坐标系配置文件");
         exitMenuItem = new JMenuItem("退出");
 
         //把菜单项加到菜单上
         fileMenu.add(openMenuItem);
         fileMenu.add(exportMenuItem);
+        fileMenu.add(openConfigItem);
         fileMenu.addSeparator();       // 添加一条分割线
         fileMenu.add(exitMenuItem);
 
