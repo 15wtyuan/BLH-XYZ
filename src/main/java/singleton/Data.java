@@ -1,13 +1,9 @@
 package singleton;
 
-import bean.Point2d;
-import bean.Point3d;
-import bean.ResultParameters4;
-import bean.ResultParameters7;
+import bean.*;
 import factory.CalculatorFactory;
 import strategy.ICalculator;
 import tools.PramSCals;
-
 import java.util.ArrayList;
 
 public class Data {
@@ -149,6 +145,26 @@ public class Data {
         ResultParameters7 resultParameters7 = PramSCals.Canshu7(p1, p2, list1.size());
         return resultParameters7;
     }
+
+
+    public void generateTestData(int num)
+    {
+        Object[][] testData = new Object[num][3];
+        for (int i=0;i<num;i++)
+        {
+            double X = -(2620000 + (int)(Math.random()*10000)) + ((double)((int)(Math.random()*100000000)))/100000000;
+            double Y = (5230000 + (int)(Math.random()*10000)) + ((double)((int)(Math.random()*100000000)))/100000000;
+            double Z = (2510000 + (int)(Math.random()*10000)) + ((double)((int)(Math.random()*100000000)))/100000000;
+            testData[i][0] = String.valueOf(X);
+            testData[i][1] = String.valueOf(Y);
+            testData[i][2] =String.valueOf(Z);
+        }
+        Choice.getInstance().setCoordinateSystem(new CoordinateSystem("1954年北京坐标系",6378245,298.3));
+        Choice.getInstance().setCentralMeridian(117.0);
+        Choice.getInstance().setMethod("XYZ -> BLH");
+        setOriginalData(testData);
+    }
+
 
 
     public Object[][] getTranData() {

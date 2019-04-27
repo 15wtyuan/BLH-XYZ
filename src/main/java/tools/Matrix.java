@@ -1,8 +1,9 @@
 package tools;
 
 public class Matrix {
-    int row, column;            //矩阵的行列数
-    double[][] data;            //矩阵的数据
+    private int row;            //矩阵的行列数
+    private int column;
+    private double[][] data;            //矩阵的数据
 
     //构造函数1
     public Matrix(int rowNum, int columnNum) {
@@ -12,10 +13,8 @@ public class Matrix {
     }
 
     public Matrix(double[][] members) {
-//        row = members.GetUpperBound(0) + 1;
-//        column = members.GetUpperBound(1) + 1;
-//        data = new double[row, column];
-//        Array.Copy(members, data, row * column);
+        row = members.length;
+        column = members[0].length;
         this.data = members;
     }
 

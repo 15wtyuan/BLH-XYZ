@@ -25,19 +25,19 @@ public class Config {
         // TODO: 2019/3/7
 
         try {
-            coordinateSystemList = new ArrayList<CoordinateSystem>();
+            coordinateSystemList = new ArrayList<>();
             Wini ini = new Wini(new File("config.ini"));
             Set<Entry<String, Section>> set = ini.entrySet();
             for (Entry<String, Section> entry : set) {
                 String sectionName = entry.getKey();
-                CoordinateSystem coordinateSystem = new CoordinateSystem(sectionName,Integer.valueOf(entry.getValue().get("RA")));
+                CoordinateSystem coordinateSystem = new CoordinateSystem(sectionName,Integer.valueOf(entry.getValue().get("RA")),Integer.valueOf(entry.getValue().get("Flat")));
                 coordinateSystemList.add(coordinateSystem);
             }
         }catch (Exception e){
             System.out.println("读取配置失败，使用默认配置");
-            coordinateSystemList = new ArrayList<CoordinateSystem>();
-            CoordinateSystem coordinateSystem1 = new CoordinateSystem("1954年北京坐标系",6378245);
-            CoordinateSystem coordinateSystem2 = new CoordinateSystem("WGS84世界坐标系",6378137);
+            coordinateSystemList = new ArrayList<>();
+            CoordinateSystem coordinateSystem1 = new CoordinateSystem("1954年北京坐标系",6378245,298.3);
+            CoordinateSystem coordinateSystem2 = new CoordinateSystem("WGS84世界坐标系",6378137,298.257223);
             coordinateSystemList.add(coordinateSystem1);
             coordinateSystemList.add(coordinateSystem2);
         }

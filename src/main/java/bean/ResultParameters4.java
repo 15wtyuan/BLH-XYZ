@@ -8,11 +8,10 @@ public class ResultParameters4 {
 
     @Override
     public String toString() {
-        return "ResultParameters4{" +
-                "rota=" + rota +
-                ", scale=" + scale +
-                ", dx=" + dx +
-                ", dy=" + dy +
-                '}';
+        return "计算结果\n"
+                + "rota: " + rota + "\n"
+                + "scale: " + scale + "\n"
+                + "dx: " + dx + "\n"
+                + "dy: " + dy + "\n";
     }
 }

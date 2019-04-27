@@ -15,7 +15,7 @@ public class ExcelReader {
         XSSFSheet sheet = workbook.getSheet("Sheet1");
 
         //获取Excel文件中的所有行数
-        int rows = sheet.getLastRowNum();
+        int rows = sheet.getLastRowNum() + 1;
         //System.out.println(rows);
 
         Object[][] originalData = new Object[rows][DataFormFactory.colNumProduce(Choice.getInstance().getMethod())];
@@ -25,7 +25,7 @@ public class ExcelReader {
         //List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < rows; i++) {
             //读取左上角单元格
-            XSSFRow row = sheet.getRow(i + 1);
+            XSSFRow row = sheet.getRow(i);
 
             //行不为空
             if (row != null) {
@@ -58,7 +58,7 @@ public class ExcelReader {
         XSSFSheet sheet = workbook.getSheet("Sheet1");
 
         //获取Excel文件中的所有行数
-        int rows = sheet.getLastRowNum();
+        int rows = sheet.getLastRowNum()+1;
         //System.out.println(rows);
 
         Object[][] originalData = new Object[rows][DataFormFactory.colNumProduce(Choice.getInstance().getMethod())];
@@ -67,7 +67,7 @@ public class ExcelReader {
         //List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < rows; i++) {
             //读取左上角单元格
-            XSSFRow row = sheet.getRow(i + 1);
+            XSSFRow row = sheet.getRow(i);
 
             //行不为空
             if (row != null) {

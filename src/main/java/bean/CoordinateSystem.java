@@ -7,11 +7,13 @@ public class CoordinateSystem {
     public double RA;
     public double RB;
     public double EPF;
+    public double Flat;
 
-    public CoordinateSystem(String name,double RA){
+    public CoordinateSystem(String name,double RA,double Flat){
         this.name = name;
         this.RA = RA;
-        RB = RA - RA / 298.3;
+        this.RB = RA - RA / Flat;
         EPF = 1 - Math.pow(RB, 2) / Math.pow(RA, 2);
+        this.Flat = Flat;
     }
 }

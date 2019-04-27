@@ -99,7 +99,10 @@ public class Main {
                 updateTable();
             }
         });
+        //Data.getInstance().generateTestData(1);
     }
+
+
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Win_BLHtoXYZ");
@@ -121,30 +124,14 @@ public class Main {
     }
 
     private void showPramSCalsDialog() {
-        System.out.println(1111111);
         if (Choice.getInstance().getMethod().equals("求四参数")) {
 
             ResultParameters4 resultParameters4 = Data.getInstance().getResultParameters4();
-            String message = "计算结果\n"
-                    + "rota: " + resultParameters4.rota + "\n"
-                    + "scale: " + resultParameters4.scale + "\n"
-                    + "dx: " + resultParameters4.dx + "\n"
-                    + "dy: " + resultParameters4.dy + "\n";
-
-            JOptionPane.showMessageDialog(panel1, message, " 计算结果", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(panel1, resultParameters4.toString(), " 计算结果", JOptionPane.PLAIN_MESSAGE);
         } else if (Choice.getInstance().getMethod().equals("求七参数")) {
 
             ResultParameters7 resultParameters7 = Data.getInstance().getResultParameters7();
-            String message = "计算结果\n"
-                    + "rotax: " + resultParameters7.rotax + "\n"
-                    + "rotay: " + resultParameters7.rotay + "\n"
-                    + "rotaz: " + resultParameters7.rotaz + "\n"
-                    + "scale: " + resultParameters7.scale + "\n"
-                    + "dx: " + resultParameters7.dx + "\n"
-                    + "dy: " + resultParameters7.dy + "\n"
-                    + "dz: " + resultParameters7.dz + "\n";
-
-            JOptionPane.showMessageDialog(panel1, message, " 计算结果", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(panel1, resultParameters7.toString(), " 计算结果", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
