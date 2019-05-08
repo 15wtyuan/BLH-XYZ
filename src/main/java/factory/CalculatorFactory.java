@@ -16,6 +16,12 @@ public class CalculatorFactory {
         else if ("BL -> XY".equals(type)) {
             return new BL_XY();
         }
+        else if ("求四参数".equals(type)) {
+            return new  Para4Convert();
+        }
+        else if ("求七参数".equals(type)) {
+            return new  Para7Convert();
+        }
         else {
             //System.out.println("请输入正确的类型!");
             return new Copy();

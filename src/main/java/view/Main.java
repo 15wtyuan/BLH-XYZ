@@ -6,6 +6,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import factory.DataFormFactory;
 import singleton.Choice;
+import singleton.Config;
 import singleton.Data;
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,7 @@ public class Main {
     private JButton FlashButton;
     private JButton button3;
     private JButton button4;
+    private JButton button5;
 
     private JTable jTable1;
     private JTable jTable2;
@@ -52,11 +54,13 @@ public class Main {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (DataFormFactory.isTrans(Choice.getInstance().getMethod()))
-                    showOutputDialog();
-                else {
-                    showPramSCalsDialog();
-                }
+                showOutputDialog();
+            }
+        });
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showPramSCalsDialog();
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -119,7 +123,6 @@ public class Main {
     }
 
 
-
     public static void main(String[] args) {
         JFrame frame = new JFrame("Win_BLHtoXYZ");
         Main win = new Main();
@@ -139,12 +142,36 @@ public class Main {
         frame.setVisible(true);
     }
 
-    private void savePramSCals(){
-
+    private void savePramSCals() {
+        SaveParaDialog dialog = new SaveParaDialog(this);
+        dialog.setLocationRelativeTo(null);
+        dialog.pack();
+        int windowWidth = dialog.getWidth(); //获得窗口宽
+        //System.out.println(windowWidth);
+        int windowHeight = dialog.getHeight(); //获得窗口高
+        //System.out.println(windowHeight);
+        Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包
+        Dimension screenSize = kit.getScreenSize(); //获取屏幕的尺寸
+        int screenWidth = screenSize.width; //获取屏幕的宽
+        int screenHeight = screenSize.height; //获取屏幕的高
+        dialog.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight / 2 - windowHeight / 2);//设置窗口居中显示
+        dialog.setVisible(true);
     }
 
-    private void pramSCals(){
-
+    private void pramSCals() {
+        ParaDialog dialog = new ParaDialog(this);
+        dialog.setLocationRelativeTo(null);
+        dialog.pack();
+        int windowWidth = dialog.getWidth(); //获得窗口宽
+        //System.out.println(windowWidth);
+        int windowHeight = dialog.getHeight(); //获得窗口高
+        //System.out.println(windowHeight);
+        Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包
+        Dimension screenSize = kit.getScreenSize(); //获取屏幕的尺寸
+        int screenWidth = screenSize.width; //获取屏幕的宽
+        int screenHeight = screenSize.height; //获取屏幕的高
+        dialog.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight / 2 - windowHeight / 2);//设置窗口居中显示
+        dialog.setVisible(true);
     }
 
     private void showPramSCalsDialog() {
@@ -213,13 +240,14 @@ public class Main {
         System.out.println("原始数据行列：" + Data.getInstance().getOriginalData().length + "/" + Data.getInstance().getOriginalData()[0].length);
         System.out.println("转换数据行列：" + Data.getInstance().getTranData().length + "/" + Data.getInstance().getTranData()[0].length);
         if (!DataFormFactory.isTrans(Choice.getInstance().getMethod())) {
-            button2.setText("计算并显示结果");
+//            button2.setText("计算并显示结果");
+            button5.setVisible(true);
             button3.setVisible(true);
             button4.setVisible(true);
-        }
-        else {
-            button2.setText("保存");
+        } else {
+//            button2.setText("保存");
             button3.setVisible(false);
+            button5.setVisible(false);
             button4.setVisible(false);
         }
 
@@ -275,13 +303,13 @@ public class Main {
     private void $$$setupUI$$$() {
         createUIComponents();
         panel1.setLayout(new GridLayoutManager(4, 3, new Insets(0, 0, 0, 0), -1, -1));
-        panel2.setLayout(new GridLayoutManager(2, 4, new Insets(0, 0, 0, 0), -1, -1));
+        panel2.setLayout(new GridLayoutManager(2, 7, new Insets(0, 0, 0, 0), -1, -1));
         panel1.add(panel2, new GridConstraints(0, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         button1 = new JButton();
         button1.setText("导入");
         panel2.add(button1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
-        panel2.add(spacer1, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        panel2.add(spacer1, new GridConstraints(1, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         FlashButton = new JButton();
         FlashButton.setText("刷新");
         panel2.add(FlashButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -290,10 +318,19 @@ public class Main {
         panel2.add(button2, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel5 = new JPanel();
         panel5.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel2.add(panel5, new GridConstraints(0, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel2.add(panel5, new GridConstraints(0, 0, 1, 7, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("  ");
         panel5.add(label2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        button3 = new JButton();
+        button3.setText("保存参数");
+        panel2.add(button3, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        button4 = new JButton();
+        button4.setText("进行转换");
+        panel2.add(button4, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        button5 = new JButton();
+        button5.setText("计算并显示结果");
+        panel2.add(button5, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel1.add(scrollPane1, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(500, 800), new Dimension(500, 800), new Dimension(500, 800), 0, false));
         panel1.add(scrollPane2, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(500, 800), new Dimension(500, 800), new Dimension(500, 800), 0, false));
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));

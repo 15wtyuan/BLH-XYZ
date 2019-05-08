@@ -66,24 +66,6 @@ public class ImportDialog extends JDialog {
         textField2.setText("0");
         textField3.setText("0");
 
-//        comboBox1.addItemListener(new ItemListener() {
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    //System.out.println(comboBox1.getSelectedItem());
-//                    if (comboBox1.getSelectedItem().equals("BLH -> XYZ") || comboBox1.getSelectedItem().equals("XYZ -> BLH")) {
-//
-//                    } else if (comboBox1.getSelectedItem().equals("BL -> XY") || comboBox1.getSelectedItem().equals("XY -> BL")) {
-//
-//                    } else if (comboBox1.getSelectedItem().equals("四参")) {
-//
-//                    } else if (comboBox1.getSelectedItem().equals("七参")) {
-//
-//                    }
-//                }
-//            }
-//        });
-
         for (int i = 0; i < Config.getInstance().getCoordinateSystemList().size(); i++) {
             comboBox2.addItem(Config.getInstance().getCoordinateSystemList().get(i).name);
         }

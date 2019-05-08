@@ -3,7 +3,7 @@ package singleton;
 import bean.*;
 import factory.CalculatorFactory;
 import strategy.ICalculator;
-import tools.PramSCals;
+import strategy.PramSCals;
 import java.util.ArrayList;
 
 public class Data {
@@ -69,7 +69,7 @@ public class Data {
         }
     }
 
-    private void calculator() {
+    public void calculator() {
         tranData = new Object[originalData.length][originalData[0].length];
         for (int i=0;i<originalData.length;i++){
             for (int j=0;j<originalData[i].length;j++){
@@ -94,27 +94,27 @@ public class Data {
     public ResultParameters4 getResultParameters4(){
         Object[][] data1 = originalData;
         Object[][] data2 = tranData;
-        ArrayList<Point2d> list1 = new ArrayList<>();
-        ArrayList<Point2d> list2 = new ArrayList<>();
+        ArrayList<Point3d> list1 = new ArrayList<>();
+        ArrayList<Point3d> list2 = new ArrayList<>();
         for (int i = 0; i < data1.length; i++) {
             try {
-                Point2d temp1 = new Point2d(Double.valueOf((String) data1[i][0]), Double.valueOf((String) data1[i][1]));
-                Point2d temp2 = new Point2d(Double.valueOf((String) data2[i][0]), Double.valueOf((String) data2[i][1]));
+                Point3d temp1 = new Point3d(Double.valueOf((String) data1[i][0]), Double.valueOf((String) data1[i][1]),0d);
+                Point3d temp2 = new Point3d(Double.valueOf((String) data2[i][0]), Double.valueOf((String) data2[i][1]),0d);
                 list1.add(temp1);
                 list2.add(temp2);
             } catch (Exception e) {
-                System.out.println("转换出错！");
+                System.out.println("转换四参数出错！");
             }
         }
-        Point2d[] p1 = new Point2d[list1.size()];
-        Point2d[] p2 = new Point2d[list2.size()];
+//        Point2d[] p1 = new Point2d[list1.size()];
+//        Point2d[] p2 = new Point2d[list2.size()];
+//
+//        for (int i = 0; i < list1.size(); i++) {
+//            p1[i] = list1.get(i);
+//            p2[i] = list2.get(i);
+//        }
 
-        for (int i = 0; i < list1.size(); i++) {
-            p1[i] = list1.get(i);
-            p2[i] = list2.get(i);
-        }
-
-        ResultParameters4 resultParameters4 = PramSCals.Canshu4(p1, p2, list1.size());
+        ResultParameters4 resultParameters4 = PramSCals.Calc4Para(list1, list2);
         return resultParameters4;
     }
 
@@ -130,19 +130,20 @@ public class Data {
                 list1.add(temp1);
                 list2.add(temp2);
             } catch (Exception e) {
-                System.out.println("转换出错！");
+                System.out.println("转换七参数出错！");
             }
         }
-        System.out.println(list1.size());
-        System.out.println(list2.size());
-        Point3d[] p1 = new Point3d[list1.size()];
-        Point3d[] p2 = new Point3d[list2.size()];
-
-        for (int i = 0; i < list1.size(); i++) {
-            p1[i] = list1.get(i);
-            p2[i] = list2.get(i);
-        }
-        ResultParameters7 resultParameters7 = PramSCals.Canshu7(p1, p2, list1.size());
+//        System.out.println(list1.size());
+//        System.out.println(list2.size());
+//        Point3d[] p1 = new Point3d[list1.size()];
+//        Point3d[] p2 = new Point3d[list2.size()];
+//
+//        for (int i = 0; i < list1.size(); i++) {
+//            p1[i] = list1.get(i);
+//            p2[i] = list2.get(i);
+//        }
+        ResultParameters7 resultParameters7 = PramSCals.Calc7Para(list1, list2);
+//        ResultParameters7 resultParameters7 = PramSCals.Canshu7(p1, p2,list1.size());
         return resultParameters7;
     }
 
