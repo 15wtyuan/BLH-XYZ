@@ -1,6 +1,8 @@
 package singleton;
 
 import bean.CoordinateSystem;
+import bean.ResultParameters4;
+import bean.ResultParameters7;
 import org.ini4j.Wini;
 import org.ini4j.Profile.Section;
 import java.io.File;
@@ -20,6 +22,8 @@ public class Config {
     }
 
     private ArrayList<CoordinateSystem> coordinateSystemList;
+    private ArrayList<ResultParameters4> resultParameters4ArrayList;
+    private ArrayList<ResultParameters7> resultParameters7ArrayList;
 
     private Config(){
         // TODO: 2019/3/7
@@ -30,10 +34,11 @@ public class Config {
             Set<Entry<String, Section>> set = ini.entrySet();
             for (Entry<String, Section> entry : set) {
                 String sectionName = entry.getKey();
-                CoordinateSystem coordinateSystem = new CoordinateSystem(sectionName,Integer.valueOf(entry.getValue().get("RA")),Integer.valueOf(entry.getValue().get("Flat")));
+                CoordinateSystem coordinateSystem = new CoordinateSystem(sectionName,Double.valueOf(entry.getValue().get("RA")),Double.valueOf(entry.getValue().get("Flat")));
                 coordinateSystemList.add(coordinateSystem);
             }
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("读取配置失败，使用默认配置");
             coordinateSystemList = new ArrayList<>();
             CoordinateSystem coordinateSystem1 = new CoordinateSystem("1954年北京坐标系",6378245,298.3);

@@ -1,7 +1,4 @@
 package view;
-
-import bean.Point2d;
-import bean.Point3d;
 import bean.ResultParameters4;
 import bean.ResultParameters7;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -10,13 +7,10 @@ import com.intellij.uiDesigner.core.Spacer;
 import factory.DataFormFactory;
 import singleton.Choice;
 import singleton.Data;
-import tools.PramSCals;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class Main {
     private JButton button1;
@@ -29,6 +23,8 @@ public class Main {
     private JScrollPane scrollPane2;
     private JLabel label1;
     private JButton FlashButton;
+    private JButton button3;
+    private JButton button4;
 
     private JTable jTable1;
     private JTable jTable2;
@@ -60,6 +56,26 @@ public class Main {
                     showOutputDialog();
                 else {
                     showPramSCalsDialog();
+                }
+            }
+        });
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (DataFormFactory.isTrans(Choice.getInstance().getMethod()))
+                    return;
+                else {
+                    savePramSCals();
+                }
+            }
+        });
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (DataFormFactory.isTrans(Choice.getInstance().getMethod()))
+                    return;
+                else {
+                    pramSCals();
                 }
             }
         });
@@ -121,6 +137,14 @@ public class Main {
         frame.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight / 2 - windowHeight / 2);//设置窗口居中显示
         frame.setJMenuBar(win.jMenuBar);
         frame.setVisible(true);
+    }
+
+    private void savePramSCals(){
+
+    }
+
+    private void pramSCals(){
+
     }
 
     private void showPramSCalsDialog() {
@@ -188,8 +212,17 @@ public class Main {
         //System.out.println("updata");
         System.out.println("原始数据行列：" + Data.getInstance().getOriginalData().length + "/" + Data.getInstance().getOriginalData()[0].length);
         System.out.println("转换数据行列：" + Data.getInstance().getTranData().length + "/" + Data.getInstance().getTranData()[0].length);
-        if (!DataFormFactory.isTrans(Choice.getInstance().getMethod()))
+        if (!DataFormFactory.isTrans(Choice.getInstance().getMethod())) {
             button2.setText("计算并显示结果");
+            button3.setVisible(true);
+            button4.setVisible(true);
+        }
+        else {
+            button2.setText("保存");
+            button3.setVisible(false);
+            button4.setVisible(false);
+        }
+
         label1.setText("转换方法：" + Choice.getInstance().getMethod());
         myTableModel1.setData(Data.getInstance().getOriginalData());
         myTableModel1.setColumnNames(Data.getInstance().getTableHeader1());

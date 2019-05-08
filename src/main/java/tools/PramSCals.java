@@ -171,4 +171,33 @@ public class PramSCals {
         resultParameters7.rotaz = (double) Math.round(dx1[6][ 0] /dx1[3][ 0]*1000000)/1000000;
         return resultParameters7;
     }
+
+    public static Point3d Para7Convert(Point3d aPtSource, ResultParameters7 sep)
+    {
+        double k = sep.scale;
+        double a2 = k * sep.rotax;
+        double a3 = k * sep.rotay;
+        double a4 = k * sep.rotax;
+
+        Point3d ToCoordinate = new Point3d();
+        ToCoordinate.X = sep.dx + k * aPtSource.X - a3 * aPtSource.Z + a4 * aPtSource.Y;
+        ToCoordinate.Y = sep.dy + k * aPtSource.Y + a2 * aPtSource.Z - a4 * aPtSource.X;
+        ToCoordinate.Z = sep.dx + k * aPtSource.Z - a2 * aPtSource.Y + a3 * aPtSource.X;
+
+        return ToCoordinate;
+    }
+
+    public static Point3d Para4Convert(Point3d aPtSource, ResultParameters4 forPara)
+    {
+        double k = forPara.scale;
+        double a1 = k * Math.cos(forPara.rota);
+        double a2 = k * Math.sin(forPara.rota);
+
+        Point3d ToCoordinate = new Point3d();
+        ToCoordinate.X = forPara.dx + a1 * aPtSource.X + a2 * aPtSource.Y;
+        ToCoordinate.Y = forPara.dy + a1 * aPtSource.Y - a2 * aPtSource.X;
+        ToCoordinate.Z = aPtSource.Z;
+
+        return ToCoordinate;
+    }
 }
