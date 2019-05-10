@@ -36,7 +36,7 @@ public class BLH_XYZ extends AbstractCalculator implements ICalculator {
             result[2] = df.format(xyz.Z);
         } catch (Exception e) {
             System.out.println("转换出错！");
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return result;
     }

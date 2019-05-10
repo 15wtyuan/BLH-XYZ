@@ -38,7 +38,7 @@ public class BL_XY extends AbstractCalculator implements ICalculator {
             System.out.println(result[1]);
         } catch (Exception e) {
             System.out.println("转换出错！");
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return result;
     }

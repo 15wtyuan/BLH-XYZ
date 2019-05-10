@@ -20,6 +20,7 @@ public class Config {
         if (instance == null) {
             instance = new Config();
         }
+        //instance.readConfig();
         return instance;
     }
 
@@ -28,6 +29,10 @@ public class Config {
     private ArrayList<ResultParameters7> resultParameters7ArrayList;
 
     private Config(){
+        readConfig();
+    }
+
+    private void readConfig(){
         // TODO: 2019/3/7
 
         try {
@@ -89,6 +94,7 @@ public class Config {
         }
     }
 
+
     public ArrayList<ResultParameters4> getResultParameters4ArrayList() {
         return resultParameters4ArrayList;
     }
@@ -120,6 +126,7 @@ public class Config {
             section.add("dz",resultParameters7.dz);
             section.add("scale",resultParameters7.scale);
             ini.store();
+            Config.getInstance().readConfig();
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("保存7参数失败");
@@ -138,6 +145,7 @@ public class Config {
             section.add("dy",resultParameters4.dy);
             section.add("scale",resultParameters4.scale);
             ini.store();
+            Config.getInstance().readConfig();
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("保存4参数失败");
